@@ -9,7 +9,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 // Define the Location and MapboxMapProps interfaces here
 
 const Home = () => {
-  const [location, setLocation] = useState<Location | null>(null); // Initialize as null
+  const [location, setLocation] = useState<any | null>(null); // Initialize as null
   const isMounted = useRef(true);
   const mapNode = useRef<HTMLDivElement | null>(null);
 
@@ -25,7 +25,7 @@ const Home = () => {
         navigator.geolocation.getCurrentPosition(({ coords }) => {
           const { latitude, longitude } = coords;
           const userLocation = { latitude, longitude };
-          setLocation(() => userLocation);
+          setLocation(userLocation);
           Cookies.set("userLocation", JSON.stringify(userLocation));
         });
       }
