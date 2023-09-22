@@ -1,0 +1,30 @@
+[
+  {
+    "name": "NMITD Rescue Center",
+    "address": "Dadar West",
+    "location" : {
+      "latitude": 23.242345,
+      "longitude": -74.214214
+    },
+    "commander": "John Doe",
+    // Additional Data
+  },
+   {
+    "name": "Thane Rescue Center",
+    "address": "Thane West",
+    "location" : {
+      "latitude": 23.242345,
+      "longitude": -74.214214
+    },
+    "commander": "John Doe"
+  },
+   {
+    "name": "Virar Rescue Center",
+    "address": "Dadar West",
+    "location" : {
+      "latitude": 23.242345,
+      "longitude": -74.214214
+    },
+    "commander": "John Doe"
+  }
+]
