@@ -1,16 +1,16 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Signup Page | Next.js E-commerce Dashboard Template",
-  description: "This is Signup page for TailAdmin Next.js",
-  // other metadata
-};
+import { signIn, useSession } from "next-auth/react";
 
 const SignUp: React.FC = () => {
-  return (
+  const { data: session } = useSession();
+
+  return session?.user == null ? (
     <>
       <Breadcrumb pageName="Sign Up" />
 
@@ -350,7 +350,14 @@ const SignUp: React.FC = () => {
                       </defs>
                     </svg>
                   </span>
-                  Sign up with Google
+                  <div
+                    onClick={(event: any) => {
+                      event.preventDefault();
+                      signIn("google", { callbackUrl: "/profile" });
+                    }}
+                  >
+                    Sign in with Google
+                  </div>
                 </button>
 
                 <div className="mt-6 text-center">
@@ -367,6 +374,15 @@ const SignUp: React.FC = () => {
         </div>
       </div>
     </>
+  ) : (
+    <div className="flex flex-col">
+      <div>Welcome {session?.user?.name}</div>
+      <div>
+        Go to
+        <Link href="/profile">Profile</Link>
+        Page to Update your Information
+      </div>
+    </div>
   );
 };
 

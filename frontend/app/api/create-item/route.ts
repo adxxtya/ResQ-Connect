@@ -1,12 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export async function POST(req: Request) {
-  const prisma = new PrismaClient();
-
   try {
     const data = await req.json();
     const userEmail = data.email;
-    // Step 1: Find the user based on the email
     const user = await prisma.user.findUnique({
       where: {
         email: userEmail,
@@ -16,11 +13,9 @@ export async function POST(req: Request) {
     console.log(user);
 
     if (!user) {
-      // User not found, handle this case as needed
       return new Response("User not found", { status: 404 });
     }
 
-    // Step 2: Create a new item associated with the user
     const newItem = await prisma.item.create({
       data: {
         itemType: data.selectedOption,
@@ -33,10 +28,14 @@ export async function POST(req: Request) {
         itemDescription: data.itemDescription,
         daysTillExpiration: data.daysTillExpiration,
         itemWeight: data.itemWeight,
+        User: {
+          connect: {
+            id: user.id,
+          },
+        },
       },
     });
 
-    // You can log the created item if needed
     console.log("Item created:", newItem);
 
     return new Response("Item created successfully", { status: 201 }); // 201 Created status
@@ -44,6 +43,6 @@ export async function POST(req: Request) {
     console.error("Error:", error);
     return new Response("Internal Server Error", { status: 500 });
   } finally {
-    await prisma.$disconnect(); // Disconnect Prisma client after the request
+    await prisma.$disconnect();
   }
 }

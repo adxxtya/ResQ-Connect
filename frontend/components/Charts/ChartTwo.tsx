@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const options: ApexOptions = {
-  colors: ["#3C50E0", "#80CAEE"],
+  colors: ["#3C50E0", "#80CAEE", "#10B981"],
   chart: {
     // events: {
     //   beforeMount: (chart) => {
@@ -51,7 +51,7 @@ const options: ApexOptions = {
   },
 
   xaxis: {
-    categories: ["M", "T", "W", "T", "F", "S", "S"],
+    categories: ["Sep", "Oct", "Nov", "Dec", "Jan"],
   },
   legend: {
     position: "top",
@@ -76,16 +76,30 @@ interface ChartTwoState {
   }[];
 }
 
-const ChartTwo: React.FC = () => {
+interface ChartTwoProps {
+  totalItems: number;
+  totalResources: number;
+  borrowedItems: number;
+}
+
+const ChartTwo: React.FC<ChartTwoProps> = ({
+  totalItems,
+  totalResources,
+  borrowedItems,
+}: any) => {
   const [state, setState] = useState<ChartTwoState>({
     series: [
       {
-        name: "Sales",
-        data: [44, 55, 41, 67, 22, 43, 65],
+        name: "Total Items",
+        data: [totalItems],
       },
       {
-        name: "Revenue",
-        data: [13, 23, 20, 8, 13, 27, 15],
+        name: "Total Resources",
+        data: [totalResources],
+      },
+      {
+        name: "Borrowed Items",
+        data: [borrowedItems],
       },
     ],
   });
@@ -102,7 +116,7 @@ const ChartTwo: React.FC = () => {
       <div className="mb-4 justify-between gap-4 sm:flex">
         <div>
           <h4 className="text-xl font-semibold text-black dark:text-white">
-            Profit this week
+            Item Diversification
           </h4>
         </div>
         <div>

@@ -1,5 +1,6 @@
 "use client";
 
+import AuthComponent from "@/components/Auth/AuthComponent";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import {
@@ -118,11 +119,11 @@ const Update = () => {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Transportation Assets" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Transportation Assets"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Transportation Assets")}
@@ -131,11 +132,11 @@ const Update = () => {
                 Transportation Assets
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Food and Water Supplies" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Food and Water Supplies"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Food and Water Supplies")}
@@ -144,11 +145,11 @@ const Update = () => {
                 Food and Water Supplies
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Medical Supplies" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Medical Supplies"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Medical Supplies")}
@@ -157,11 +158,11 @@ const Update = () => {
                 Medical Supplies
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Shelter and Housing" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Shelter and Housing"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Shelter and Housing")}
@@ -170,11 +171,11 @@ const Update = () => {
                 Shelter and Housing
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Communication Equipment" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Communication Equipment"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Communication Equipment")}
@@ -183,11 +184,11 @@ const Update = () => {
                 Communication Equipment
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Search and Rescue Gear" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Search and Rescue Gear"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Search and Rescue Gear")}
@@ -196,13 +197,13 @@ const Update = () => {
                 Search and Rescue Gear
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Power and Energy Supplies"
                     ? "selected"
                     : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Power and Energy Supplies"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Power and Energy Supplies")}
@@ -211,13 +212,13 @@ const Update = () => {
                 Power and Energy Supplies
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Hygiene and Sanitation Items"
                     ? "selected"
                     : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Hygiene and Sanitation Items"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Hygiene and Sanitation Items")}
@@ -226,13 +227,13 @@ const Update = () => {
                 Hygiene and Sanitation Items
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Clothing and Personal Items"
                     ? "selected"
                     : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Clothing and Personal Items"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Clothing and Personal Items")}
@@ -241,11 +242,11 @@ const Update = () => {
                 Clothing and Personal Items
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Tools and Equipment" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Tools and Equipment"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Tools and Equipment")}
@@ -254,13 +255,13 @@ const Update = () => {
                 Tools and Equipment
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Financial and Administrative Resources"
                     ? "selected"
                     : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Financial and Administrative Resources"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() =>
@@ -271,11 +272,11 @@ const Update = () => {
                 Financial and Administrative Resources
               </div>
               <div
-                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-bodydark1 dark:hover:bg-graydark cursor-pointer bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
+                className={`card flex items-center justify-center text-xl gap-2 rounded-sm border min-w-75 border-stroke hover:bg-primary/40 dark:hover:bg-primary/70 cursor-pointer py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark ${
                   selectedOption === "Miscellaneous Resources" ? "selected" : ""
                 } border p-4 cursor-pointer transition duration-300 ${
                   selectedOption === "Miscellaneous Resources"
-                    ? "bg-blue-500 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
+                    ? "bg-primary dark:bg-primary/70 hover:bg-blue-600 dark:hover:bg-blue-600 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={() => handleCardClick("Miscellaneous Resources")}
@@ -454,48 +455,54 @@ const Update = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl">Add Resources</h1>
-      {renderStepContent()}
-      {loading && "loading"}
-      <div className="flex justify-between mt-4">
-        {step > 1 && (
-          <button onClick={prevStep} className="bg-gray-200 px-6 py-2 mt-8">
-            Previous
-          </button>
-        )}
-        <div className="flex-grow"></div>
-        {step === 1 && selectedOption !== "" && (
-          <button
-            onClick={nextStep}
-            className="bg-primary text-white px-6 py-2 mt-8"
-          >
-            Next
-          </button>
-        )}
-        {step === 2 &&
-          itemName !== "" &&
-          itemQuantity !== 0 &&
-          itemQuality !== 0 &&
-          (expires ? daysTillExpiration !== 0 : true) &&
-          (!transportable ? itemWeight !== 0 : true) && (
-            <button
-              onClick={nextStep}
-              className="bg-primary text-white px-6 py-2 mt-8"
-            >
-              Next
-            </button>
-          )}
-        {step === 3 && selectedOption !== "" && (
-          <button
-            className="bg-green-500 text-white px-6 py-2 mt-8"
-            onClick={createItem}
-          >
-            Submit
-          </button>
-        )}
-      </div>
-    </div>
+    <>
+      {session?.user !== null ? (
+        <div className="container mx-auto p-4">
+          <h1 className="text-4xl">Add Resources</h1>
+          {renderStepContent()}
+          {loading && "loading"}
+          <div className="flex justify-between mt-4">
+            {step > 1 && (
+              <button onClick={prevStep} className="bg-gray-200 px-6 py-2 mt-8">
+                Previous
+              </button>
+            )}
+            <div className="flex-grow"></div>
+            {step === 1 && selectedOption !== "" && (
+              <button
+                onClick={nextStep}
+                className="bg-primary text-white px-6 py-2 mt-8"
+              >
+                Next
+              </button>
+            )}
+            {step === 2 &&
+              itemName !== "" &&
+              itemQuantity !== 0 &&
+              itemQuality !== 0 &&
+              (expires ? daysTillExpiration !== 0 : true) &&
+              (!transportable ? itemWeight !== 0 : true) && (
+                <button
+                  onClick={nextStep}
+                  className="bg-primary text-white px-6 py-2 mt-8"
+                >
+                  Next
+                </button>
+              )}
+            {step === 3 && selectedOption !== "" && (
+              <button
+                className="bg-green-500 text-white px-6 py-2 mt-8"
+                onClick={createItem}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <AuthComponent />
+      )}
+    </>
   );
 };
 

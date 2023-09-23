@@ -43,6 +43,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Item          Item[]
+  agency        Agency?
 }
 
 model VerificationToken {
@@ -71,13 +72,14 @@ model Item {
   userId             String?
 }
 
-model VerificationRequest {
-  id         String   @id @default(cuid())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@unique([identifier, token])
+model Agency {
+  id              String @id @default(cuid())
+  name            String
+  address         String
+  about           String
+  contactNumber   String
+  location        String
+  areaOfExpertise String
+  user            User   @relation(fields: [userId], references: [id])
+  userId          String @unique
 }

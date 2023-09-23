@@ -1,24 +1,121 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChartOne from "../Charts/ChartOne";
 import ChartThree from "../Charts/ChartThree";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
-// import Map from "../Maps/TestMap";
 
-// without this the component renders on server and throws an error
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 const MapOne = dynamic(() => import("../Maps/MapOne"), {
   ssr: false,
 });
 
+const sendEmail = async (email: any) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/dashboard-data`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Email sent successfully!");
+      console.log("Response data:", data);
+
+      return data;
+    } else {
+      console.error("Failed to send email");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return null;
+  }
+};
+
 const ECommerce: React.FC = () => {
+  const { data: session } = useSession();
+  const [responseData, setResponseData] = useState<any | null>(null);
+  const [expiryItemSum, setExpiryItemSum] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const [resourceTypes, setResourceTypes] = useState(0);
+  const [totalBorrowedItems, setTotalBorrowedItems] = useState(0);
+  const itemTypesSet = new Set();
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      sendEmail(session.user.email)
+        .then((data) => {
+          if (data !== null) {
+            setResponseData(data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (responseData && responseData.Item) {
+      responseData.Item.forEach((item: { itemType: any }) => {
+        const itemType = item.itemType;
+        itemTypesSet.add(itemType);
+      });
+      setResourceTypes(itemTypesSet.size);
+
+      const sumOfExpiredItems = responseData.Item.filter(
+        (item: { expires: boolean }) => item.expires === true
+      ).reduce(
+        (accumulator: any, item: { itemQuantity: any }) =>
+          accumulator + item.itemQuantity,
+        0
+      );
+
+      setExpiryItemSum(sumOfExpiredItems);
+
+      const sumOfAllItems = responseData.Item.reduce(
+        (accumulator: any, item: { itemQuantity: any }) =>
+          accumulator + item.itemQuantity,
+        0
+      );
+
+      setTotalItems(sumOfAllItems);
+
+      const sumOfBorrowedItems = responseData.Item.filter(
+        (item: { borrowed: boolean }) => item.borrowed === true
+      ).reduce(
+        (accumulator: any, item: { itemQuantity: any }) =>
+          accumulator + item.itemQuantity,
+        0
+      );
+
+      setTotalBorrowedItems(sumOfBorrowedItems);
+    }
+  }, [responseData]);
+
+  console.log("Data", responseData);
+
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats
+          title="Overall Items"
+          total={`${totalItems} Total Items`}
+          // rate="0.43%"
+          // levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -37,7 +134,12 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
+        <CardDataStats
+          title="Total Expirable Items"
+          total={`${expiryItemSum} Expirable Items`}
+          // rate="4.35%"
+          // levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -60,7 +162,10 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats
+          title="Total Types of Resources"
+          total={`${resourceTypes} Resource Types`}
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -79,7 +184,12 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats
+          title="Total Borrowed Items"
+          total={`${totalBorrowedItems} Borrowed Items`}
+          // rate="0.95%"
+          // levelDown
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -105,9 +215,13 @@ const ECommerce: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
+        <ChartOne totalItems={totalItems} totalResources={resourceTypes} />
+        <ChartTwo
+          totalItems={totalItems}
+          totalResources={resourceTypes}
+          borrowedItems={totalBorrowedItems}
+        />
+        <ChartThree data={responseData} />
         <MapOne />
         <div className="col-span-12 xl:col-span-8">
           <TableOne />
