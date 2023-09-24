@@ -19,9 +19,9 @@ const Chart = () => {
         <div className="col-span-12">
           <ChartFour />
         </div>
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
+        <ChartOne totalItems={0} totalResources={0} />
+        <ChartTwo totalItems={0} totalResources={0} borrowedItems={0} />
+        <ChartThree data={undefined} />
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AuthComponent from "@/components/Auth/AuthComponent";
 import { getServerSession } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";

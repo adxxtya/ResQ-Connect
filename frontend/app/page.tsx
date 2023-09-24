@@ -6,6 +6,8 @@ import mapboxgl, { type LngLatLike } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+export const dynamic = "force-dynamic";
+
 const Home = () => {
   const data = [
     {

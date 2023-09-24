@@ -130,7 +130,7 @@ interface ChartOneProps {
 }
 
 const ChartOne: React.FC<ChartOneProps> = ({ totalItems, totalResources }) => {
-  console.log(totalItems, totalResources);
+  // console.log(totalItems, totalResources);
 
   const [state, setState] = useState({
     series: [
