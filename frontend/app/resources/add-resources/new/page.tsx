@@ -299,7 +299,7 @@ const Update = () => {
                 <label className="text-lg">Item Name: </label>
                 <input
                   type="text"
-                  className="p-2 dark:bg-graydark"
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-graydark"
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
@@ -308,7 +308,7 @@ const Update = () => {
                 <label className="text-lg">Item Quantity: </label>
                 <input
                   type="number"
-                  className="p-2 dark:bg-graydark"
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-graydark"
                   value={itemQuantity}
                   onChange={(e) => setItemQuantity(Number(e.target.value))}
                 />
@@ -334,7 +334,7 @@ const Update = () => {
               <div className="mt-4 flex flex-col md:flex-row md:items-end gap-2 md:gap-4">
                 <label className="text-lg">Item Description: </label>
                 <textarea
-                  className="p-2 dark:bg-graydark"
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-graydark"
                   placeholder="(optional)"
                   value={itemDescription}
                   onChange={(e) => setItemDescription(e.target.value)}
@@ -378,7 +378,7 @@ const Update = () => {
                   </label>
                   <input
                     type="number"
-                    className="p-2 dark:bg-graydark"
+                    className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-graydark"
                     value={daysTillExpiration}
                     onChange={(e) =>
                       setDaysTillExpiration(Number(e.target.value))
@@ -393,7 +393,7 @@ const Update = () => {
                   </label>
                   <input
                     type="number"
-                    className="p-2 dark:bg-graydark"
+                    className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-graydark"
                     value={itemWeight}
                     onChange={(e) => setItemWeight(Number(e.target.value))}
                   />
