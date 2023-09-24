@@ -318,44 +318,48 @@ const Home = () => {
       }
     });
 
-    agencies.forEach(
-      (
-        agency: {
-          location: { latitude: number; longitude: number };
-          name: any;
-          address: any;
-        },
-        index: any
-      ) => {
-        if (
-          agency.location &&
-          !isNaN(agency.location.latitude) &&
-          !isNaN(agency.location.longitude)
-        ) {
-          const offset = 0.0001 * (Math.random() - 0.5);
-          const agencyLocation: LngLatLike = [
-            agency.location.longitude + offset,
-            agency.location.latitude + offset,
-          ];
+    if (agencies.length > 0) {
+      agencies.forEach(
+        (
+          agency: {
+            location: { latitude: number; longitude: number };
+            name: any;
+            address: any;
+          },
+          index: any
+        ) => {
+          console.log("debug", agency);
 
-          new mapboxgl.Marker({ color: agencyMarkerColor })
-            .setLngLat(agencyLocation)
-            .setPopup(
-              new mapboxgl.Popup().setHTML(
-                `<h3>${agency.name}</h3><p>${agency.address}</p>`
+          if (
+            agency.location &&
+            !isNaN(agency.location.latitude) &&
+            !isNaN(agency.location.longitude)
+          ) {
+            const offset = 0.0001 * (Math.random() - 0.5);
+            const agencyLocation: LngLatLike = [
+              agency.location.longitude + offset,
+              agency.location.latitude + offset,
+            ];
+
+            new mapboxgl.Marker({ color: agencyMarkerColor })
+              .setLngLat(agencyLocation)
+              .setPopup(
+                new mapboxgl.Popup().setHTML(
+                  `<h3>${agency.name}</h3><p>${agency.address}</p>`
+                )
               )
-            )
-            .addTo(mapboxMap);
+              .addTo(mapboxMap);
+          }
         }
-      }
-    );
+      );
+    }
 
     return () => {
       if (mapboxMap) {
         mapboxMap.remove();
       }
     };
-  }, [location]);
+  }, [location, agencies]);
 
   useEffect(() => {
     const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/get-agency-locations`;
