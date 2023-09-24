@@ -7,10 +7,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const Home = () => {
-  const [location, setLocation] = useState<any | null>(null); // Initialize as null
-  const isMounted = useRef(true);
-  const mapNode = useRef<HTMLDivElement | null>(null);
-
   const data = [
     {
       Unit1: {
@@ -200,25 +196,9 @@ const Home = () => {
       },
     },
   ];
-
-  useEffect(() => {
-    const storedLocation = Cookies.get("userLocation");
-
-    if (isMounted.current) {
-      isMounted.current = false;
-      if (storedLocation) {
-        const parsedLocation = JSON.parse(storedLocation);
-        setLocation(parsedLocation);
-      } else if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-          const { latitude, longitude } = coords;
-          const userLocation = { latitude, longitude };
-          setLocation(userLocation);
-          Cookies.set("userLocation", JSON.stringify(userLocation));
-        });
-      }
-    }
-  }, []);
+  const [location, setLocation] = useState<any | null>(null);
+  const mapNode = useRef<HTMLDivElement | null>(null);
+  const [agencies, setAgencies] = useState<any>([]);
 
   useEffect(() => {
     const node = mapNode.current;
@@ -245,7 +225,8 @@ const Home = () => {
     });
 
     const userMarkerColor = "blue";
-    const otherMarkerColor = "red";
+    const rescueReliefMarkerColor = "red";
+    const agencyMarkerColor = "yellow";
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -270,28 +251,53 @@ const Home = () => {
       );
     }
 
-    // Create a legend div
+    // Create a styled legend with colored boxes
     const legend = document.createElement("div");
     legend.innerHTML = `
-    <div class="legend">
+    <div class="map-legend">
       <div class="legend-item">
-        <span class="marker" style="background-color: ${userMarkerColor};"></span>
-        User's Location
+        <div class="legend-color-box" style="background-color: ${userMarkerColor};"></div>
+        <span class="legend-text">User's Location</span>
       </div>
       <div class="legend-item">
-        <span class="marker" style="background-color: ${otherMarkerColor};"></span>
-        Other Location
+        <div class="legend-color-box" style="background-color: ${rescueReliefMarkerColor};"></div>
+        <span class="legend-text">Rescue Relief Agencies in India</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color-box" style="background-color: ${agencyMarkerColor};"></div>
+        <span class="legend-text">RescQ Connect Agencies in India</span>
       </div>
     </div>
   `;
-    legend.className = "mapboxgl-ctrl map-legend";
+    legend.className = "mapboxgl-ctrl";
 
-    // Add the legend to the map
+    // Apply CSS styles to the legend
+    legend.style.position = "absolute";
+    legend.style.bottom = "5px";
+    legend.style.left = "5px";
+    legend.style.zIndex = "99999999";
+    legend.style.backgroundColor = "white";
+    legend.style.padding = "10px";
+    legend.style.border = "1px solid #ccc";
+    legend.style.borderRadius = "5px";
+
+    // Style the color boxes
+    const colorBoxes = legend.querySelectorAll(".legend-color-box");
+    colorBoxes.forEach((box: any) => {
+      box.style.display = "inline-block";
+      box.style.width = "20px";
+      box.style.height = "20px";
+      box.style.marginRight = "10px";
+    });
+
+    const legendText = legend.querySelectorAll(".legend-text");
+    legendText.forEach((text: any) => {
+      text.style.verticalAlign = "top";
+    });
+
     node.appendChild(legend);
 
-    // Add markers for all 7 locations
     data.forEach((unitData: any) => {
-      // Loop through all units (Unit1, Unit2, etc.)
       for (let unitKey in unitData) {
         const unit = unitData[unitKey];
         const { Coordinates, Name, Address } = unit;
@@ -300,7 +306,7 @@ const Home = () => {
           const { Latitude, Longitude } = Coordinates;
           const unitLocation: LngLatLike = [Longitude, Latitude];
 
-          new mapboxgl.Marker({ color: otherMarkerColor })
+          new mapboxgl.Marker({ color: rescueReliefMarkerColor })
             .setLngLat(unitLocation)
             .setPopup(
               new mapboxgl.Popup().setHTML(`<h3>${Name}</h3><p>${Address}</p>`)
@@ -310,12 +316,66 @@ const Home = () => {
       }
     });
 
+    agencies.forEach(
+      (
+        agency: {
+          location: { latitude: number; longitude: number };
+          name: any;
+          address: any;
+        },
+        index: any
+      ) => {
+        if (
+          agency.location &&
+          !isNaN(agency.location.latitude) &&
+          !isNaN(agency.location.longitude)
+        ) {
+          const offset = 0.0001 * (Math.random() - 0.5);
+          const agencyLocation: LngLatLike = [
+            agency.location.longitude + offset,
+            agency.location.latitude + offset,
+          ];
+
+          new mapboxgl.Marker({ color: agencyMarkerColor })
+            .setLngLat(agencyLocation)
+            .setPopup(
+              new mapboxgl.Popup().setHTML(
+                `<h3>${agency.name}</h3><p>${agency.address}</p>`
+              )
+            )
+            .addTo(mapboxMap);
+        }
+      }
+    );
+
     return () => {
       if (mapboxMap) {
         mapboxMap.remove();
       }
     };
   }, [location]);
+
+  useEffect(() => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/get-agency-locations`;
+
+    // Make a GET request to the API endpoint
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // Parse the response body as JSON
+      })
+      .then((data) => {
+        // Update the 'agencies' state variable with the fetched data
+        setAgencies(data);
+        console.log("agency", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  console.log("agency out", agencies);
 
   return (
     <div>
@@ -325,36 +385,3 @@ const Home = () => {
 };
 
 export default Home;
-
-<style jsx>{`
-  .legend-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-
-  .legend-marker {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    border-radius: 50%;
-  }
-
-  .user-marker {
-    background-color: blue; // Color for the user's location marker
-  }
-
-  .other-marker {
-    background-color: red; // Color for other location markers
-  }
-`}</style>;
