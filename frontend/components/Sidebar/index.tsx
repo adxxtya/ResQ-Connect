@@ -278,7 +278,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Update Resources
                             </Link>
                           </li>
-                          <li>
+                          {/* <li>
                             <Link
                               href="/resources/our-resources"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
@@ -288,7 +288,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             >
                               Our Agency
                             </Link>
-                          </li>
+                          </li> */}
                           <li>
                             <Link
                               href="/resources/others-resources"

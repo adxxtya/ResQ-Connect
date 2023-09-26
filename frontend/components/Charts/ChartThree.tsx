@@ -15,7 +15,7 @@ const options: ApexOptions = {
     type: "donut",
   },
   colors: ["#10B981", "#375E83", "#259AE6", "#FFA70B"],
-  labels: ["Remote", "Hybrid", "Onsite", "Leave"],
+  labels: ["Our Resources", "Agencies Resources", "Others", "Miscellaneous"],
   legend: {
     show: true,
     position: "bottom",
@@ -68,7 +68,7 @@ const ChartThree: React.FC<ChartThreeProps> = ({ data }) => {
       <div className="mb-3 justify-between gap-4 sm:flex">
         <div>
           <h5 className="text-xl font-semibold text-black dark:text-white">
-            Visitors Analytics
+            Resource type Analysis
           </h5>
         </div>
         <div>

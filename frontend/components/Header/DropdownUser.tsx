@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getServerSession } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { FaUserCircle } from "react-icons/fa"; // Import the icon
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -26,7 +26,6 @@ const DropdownUser = () => {
     return () => document.removeEventListener("click", clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -53,14 +52,18 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <Image
-            width={112}
-            height={112}
-            src={session?.user?.image || ""}
-            alt="User"
-            className="rounded-full"
-          />
+        <span className="h-12 w-12 rounded-full flex items-center">
+          {session?.user?.image ? (
+            <Image
+              width={112}
+              height={112}
+              src={session?.user?.image}
+              alt="User"
+              className="rounded-full"
+            />
+          ) : (
+            <FaUserCircle size={40} />
+          )}
         </span>
 
         <svg

@@ -6,11 +6,7 @@ import React from "react";
 const Community = () => {
   const { data: session } = useSession();
 
-  return (
-    <div>
-      {session?.user != null ? <div>community</div> : <AuthComponent />}
-    </div>
-  );
+  return <div>{session?.user != null ? <div>hi</div> : <AuthComponent />}</div>;
 };
 
 export default Community;

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import AuthComponent from "@/components/Auth/AuthComponent";
+import { FaUserCircle } from "react-icons/fa"; // Import the icon
 import Link from "next/link";
 export const metadata: Metadata = {
   title: "Profile Page | Next.js E-commerce Dashboard Template",
@@ -77,14 +78,18 @@ const Profile = async () => {
             </div>
             <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
               <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
-                <div className="relative drop-shadow-2">
-                  <Image
-                    src={session?.user?.image || "/images/user/user-06.png"}
-                    width={160}
-                    height={160}
-                    className="rounded-full"
-                    alt="profile"
-                  />
+                <div className="relative drop-shadow-2 flex items-center justify-center h-full">
+                  {session?.user?.image ? (
+                    <Image
+                      width={112}
+                      height={112}
+                      src={session?.user?.image}
+                      alt="User"
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <FaUserCircle size={200} />
+                  )}
                   <label
                     htmlFor="profile"
                     className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
